@@ -389,3 +389,38 @@
 
 ### Verification
 - `npm run build` -> PASS
+
+## 2026-02-24 - Vercel build failure fix (`vue-tsc` / lockfile drift)
+
+### Problem observed (from Vercel logs)
+- Build failed in `pnpm run build` at `vue-tsc --noEmit` with:
+  - `Search string not found: "/supportedTSExtensions = .*(?=;)/"`
+- Vercel used Node `v24.13.0`.
+- Install step showed:
+  - `A pnpm-lock.yaml file exists. The current configuration prohibits to read or write a lockfile`
+
+### Root cause
+- `.npmrc` was effectively preventing pnpm lockfile usage during install, so dependency versions drifted on each CI run.
+- Without lockfile enforcement, `typescript` resolved to `5.9.x` while `vue-tsc` stayed on `1.8.x`, causing known incompatibility in `vue-tsc` patch logic.
+
+### Fixes applied
+- `.npmrc`
+  - Set `lockfile=true` to allow pnpm to read and honor `pnpm-lock.yaml`.
+- `package.json`
+  - Added Node runtime constraint:
+    - `"engines": { "node": "20.x" }`
+  - Pinned critical versions to stable compatible set:
+    - `"typescript": "5.4.5"`
+    - `"vue-tsc": "1.8.27"`
+  - Pinned VueUse packages to compatible versions used in prior successful resolution set:
+    - `"@vueuse/core": "10.11.1"`
+    - `"@vueuse/head": "1.3.1"`
+    - `"@vueuse/router": "10.11.1"`
+- `pnpm-lock.yaml`
+  - Regenerated and aligned with updated `package.json` so CI gets deterministic dependency graph.
+
+### Verification
+- In a clean temporary clone of the repo (no existing `node_modules`):
+  1. `corepack pnpm install` -> PASS (`Lockfile is up to date`)
+  2. `corepack pnpm run build` -> PASS
+- This clean-run validation mirrors Vercel behavior and confirms the deployment failure is fixed.
