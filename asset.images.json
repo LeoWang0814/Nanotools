@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "updatedAt": "2026-02-24",
+  "images": [
+    {
+      "id": "favicon",
+      "fileName": "favicon.ico",
+      "purpose": "site favicon",
+      "url": "https://image-host.nanoberry.dev/favicon.ico"
+    },
+    {
+      "id": "hero_light",
+      "fileName": "hero_devices_light.png",
+      "purpose": "homepage hero illustration (light mode)",
+      "url": "https://image-host.nanoberry.dev/b90fefe9-5366-4f1d-9307-f7c0022eca21.png"
+    },
+    {
+      "id": "hero_dark",
+      "fileName": "hero_devices_dark.png",
+      "purpose": "homepage hero illustration (dark mode)",
+      "url": "https://image-host.nanoberry.dev/f5ddf30a-803d-44e9-8b0b-e77d3de312e8.png"
+    },
+    {
+      "id": "bg_light",
+      "fileName": "bg_frost_grid_light.png",
+      "purpose": "global background texture (light mode)",
+      "url": "https://image-host.nanoberry.dev/e2c59f77-d055-49a8-a676-07dc5933ffea.png"
+    },
+    {
+      "id": "bg_dark",
+      "fileName": "bg_frost_grid_dark.png",
+      "purpose": "global background texture (dark mode)",
+      "url": "https://image-host.nanoberry.dev/65596d5c-4c85-4e1a-8335-e9af3b6ab12e.png"
+    },
+    {
+      "id": "divider",
+      "fileName": "divider_blueprint_line.png",
+      "purpose": "section divider decoration (optional)",
+      "url": "https://image-host.nanoberry.dev/d00a39eb-5700-4551-be83-a936bed2d284.png"
+    }
+  ]
+}
